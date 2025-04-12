@@ -8,6 +8,8 @@ public class User {
     private String password;
     private String address;
 
+    private Cart cart;
+
     public User() {
 
     }
@@ -72,7 +74,12 @@ public class User {
     }
 
 
-    public int getUserNumber() {
-        return 0;
+    public Cart canHaveACart() {
+        cart = new Cart();
+        return cart;
+    }
+
+    public void canRemoveItem(String itemName) {
+        cart.Remove(itemName);
     }
 }

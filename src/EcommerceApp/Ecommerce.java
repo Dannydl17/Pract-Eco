@@ -48,4 +48,8 @@ public class Ecommerce {
     public int getTotalNumberOfUser() {
         return numberOfUser;
     }
+
+    public int getTotalUserNumber() {
+        return users.size();
+    }
 }

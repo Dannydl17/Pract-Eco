@@ -7,21 +7,18 @@ public class Item {
     private BigDecimal price;
     private Integer quantity;
 
-    public Item() {
-    }
-
     public Item(String name, BigDecimal price, Integer quantity) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public void setName(String name) {
+    public void setItemName(String name) {
         this.name = name;
     }
 
 
-    public String getName() {
+    public String getItemName() {
         return name;
     }
 
