@@ -7,7 +7,6 @@ public class User {
     private String phoneNumber;
     private String password;
     private String address;
-
     private Cart cart;
 
     public User() {
@@ -42,7 +41,6 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
     public String getEmail() {
         return email;
@@ -82,4 +80,6 @@ public class User {
     public void canRemoveItem(String itemName) {
         cart.Remove(itemName);
     }
+
+
 }

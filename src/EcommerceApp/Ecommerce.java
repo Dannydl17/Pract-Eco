@@ -1,55 +1,51 @@
 package EcommerceApp;
 
+import EcommerceApp.exception.InvalidItemName;
+import EcommerceApp.exception.UserNotFound;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Ecommerce {
 
     private int numberOfUser;
     private ArrayList<User> users;
-
+    private Cart cart;
     public Ecommerce(String name){
         users = new ArrayList<>();
+        cart = new Cart();
     }
 
     public User canRegisterUser(String firstName, String lastName, String email,
-                            String phoneNumber, String password, String address) {
+                                String phoneNumber, String password, String address) {
         numberOfUser++;
-        String userFirstName = generateUserFirstName(firstName);
-        String userLastName = generateUserLastName(lastName);
-        String userEmail = generateUserEmail(email);
-        String userPhoneNumber = generateUserPhoneNumber(phoneNumber);
-        String userPassword = generateUserPassword(password);
-        String userAddress = generateUserAddress(address);
-        User user = new User(userFirstName, userLastName, userEmail,
-                           userPhoneNumber, userPassword, userAddress);
+        User user = new User(firstName, lastName, email, phoneNumber, password, address);
         users.add(user);
         return user;
-    }
-
-    private String generateUserFirstName(String firstName) {
-        return firstName;
-    }
-    private String generateUserLastName(String lastName) {
-        return lastName;
-    }
-    private String generateUserEmail(String email) {
-        return email;
-    }
-    private String generateUserPhoneNumber(String phoneNumber) {
-        return phoneNumber;
-    }
-    private String generateUserPassword(String password) {
-        return password;
-    }
-    private String generateUserAddress(String address) {
-        return address;
     }
 
     public int getTotalNumberOfUser() {
         return numberOfUser;
     }
 
-    public int getTotalUserNumber() {
-        return users.size();
+    public User canFindARegisterUser(String email) {
+        for (User user: users) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        throw new UserNotFound("User not found");
     }
+
+    public Cart canCreateCartForUser() {
+        User user = canFindARegisterUser("email");
+        cart = user.canHaveACart();
+        return cart;
+    }
+
+    public void canAddItemsToCart(String name, BigDecimal bigDecimal, int numb) {
+        Item item = new Item(name, bigDecimal, numb);
+        cart.add(item);
+    }
+
 }

@@ -16,9 +16,8 @@ public class ItemTest {
 
     @BeforeEach
     public void setUp(){
-        item = new Item("name", bigDecimal = new BigDecimal("0.00"), 0);
+        item = new Item("name",bigDecimal = new BigDecimal("0.00"), 0);
     }
-
 
     @Test
     public void testThatItemsValueCanBeCollectedFirstAndBeStoredTest(){
