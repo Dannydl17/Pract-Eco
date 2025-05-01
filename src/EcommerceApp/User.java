@@ -9,10 +9,6 @@ public class User {
     private String address;
     private Cart cart;
 
-    public User() {
-
-    }
-
     public User(String firstName, String lastName, String email, String phoneNumber, String password, String address) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -80,6 +76,7 @@ public class User {
     public void canRemoveItem(String itemName) {
         cart.Remove(itemName);
     }
-
-
+    public void add(Item item) {
+        cart.add(item);
+    }
 }

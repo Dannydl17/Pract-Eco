@@ -20,8 +20,6 @@ public class Cart {
     public void Remove(String name) {
         Item item = findItemByName(name);
         items.remove(item);
-        System.out.println(items);
-
     }
 
     private Item findItemByName(String name) {
@@ -32,5 +30,4 @@ public class Cart {
         }
         throw new InvalidItemName("Item not found");
     }
-
 }

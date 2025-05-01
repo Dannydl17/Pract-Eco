@@ -10,10 +10,9 @@ public class Ecommerce {
 
     private int numberOfUser;
     private ArrayList<User> users;
-    private Cart cart;
+
     public Ecommerce(String name){
         users = new ArrayList<>();
-        cart = new Cart();
     }
 
     public User canRegisterUser(String firstName, String lastName, String email,
@@ -39,13 +38,18 @@ public class Ecommerce {
 
     public Cart canCreateCartForUser() {
         User user = canFindARegisterUser("email");
-        cart = user.canHaveACart();
+        Cart cart = user.canHaveACart();
         return cart;
     }
 
     public void canAddItemsToCart(String name, BigDecimal bigDecimal, int numb) {
         Item item = new Item(name, bigDecimal, numb);
-        cart.add(item);
+        User user = canFindARegisterUser("email");
+        user.add(item);
     }
 
+    public void canRemoveItem(String name) {
+        User user = canFindARegisterUser("email");
+        user.canRemoveItem(name);
+    }
 }

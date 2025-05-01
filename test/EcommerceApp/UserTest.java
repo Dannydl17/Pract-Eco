@@ -71,19 +71,20 @@ public class UserTest {
     public void testThatUserCanHaveACartToAddItemTest(){
         Cart cart = user.canHaveACart();
         item = new Item("Water", new BigDecimal("50.00"), 0);
-        cart.add(item);
+        user.add(item);
         assertEquals(1, cart.count());
     }
 
     @Test
     public void testThatUserCanAddItemCartTwiceTest(){
         Cart cart = user.canHaveACart();
+        assertEquals(0, cart.count());
         item = new Item("Water", new BigDecimal("50.00"), 0);
-        cart.add(item);
+        user.add(item);
         assertEquals(1, cart.count());
 
         item = new Item("Bag", new BigDecimal("100.00"), 0);
-        cart.add(item);
+        user.add(item);
         assertEquals(2, cart.count());
     }
 
@@ -91,12 +92,12 @@ public class UserTest {
     public void testThatUserCanAddItemCartTwiceAndRemoveOneTest(){
         Cart cart = user.canHaveACart();
         item = new Item("Water", new BigDecimal("50.00"), 0);
-        cart.add(item);
+        user.add(item);
         assertEquals(1, cart.count());
 
         item = new Item("Bag", new BigDecimal("100.00"), 0);
         String sItem = item.getItemName();
-        cart.add(item);
+        user.add(item);
         assertEquals(2, cart.count());
 
         user.canRemoveItem(sItem);
