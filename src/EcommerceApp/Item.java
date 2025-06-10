@@ -26,10 +26,14 @@ public class Item {
     }
 
 
-    public BigDecimal getPrice() {
-        return price;
+    public String getPrice() {
+        // This should return the price with a currency symbol like naira or dollars ($);
+        return addSymbol(price);
     }
 
+    public String addSymbol(BigDecimal price){
+        return "$" + price;
+    }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;

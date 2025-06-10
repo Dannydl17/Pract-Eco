@@ -12,6 +12,7 @@ public class ItemTest {
     private Item item;
 
     private Cart cart;
+
     BigDecimal bigDecimal;
 
     @BeforeEach
@@ -25,9 +26,10 @@ public class ItemTest {
         String firstItem = item.getItemName();
         assertEquals("Water", firstItem);
 
+
         item.setPrice(new BigDecimal("100.00"));
         String amount = String.valueOf(item.getPrice());
-        assertEquals("100.00", amount);
+        assertEquals("$100.00", amount);
 
         item.setQuantity(1);
         int nums = item.getQuantity();
@@ -48,7 +50,7 @@ public class ItemTest {
 
         item.setPrice(new BigDecimal("100.00"));
         String amount = String.valueOf(item.getPrice());
-        assertEquals("100.00", amount);
+        assertEquals("$100.00", amount);
 
         item.setQuantity(1);
         int nums = item.getQuantity();
@@ -66,7 +68,7 @@ public class ItemTest {
 
         item.setPrice(new BigDecimal("100.00"));
         String amountN = String.valueOf(item.getPrice());
-        assertEquals("100.00", amountN);
+        assertEquals("$100.00", amountN);
 
         item.setQuantity(1);
         int numsQ = item.getQuantity();
@@ -85,7 +87,7 @@ public class ItemTest {
 
         item.setPrice(new BigDecimal("100.00"));
         String amount = String.valueOf(item.getPrice());
-        assertEquals("100.00", amount);
+        assertEquals("$100.00", amount);
 
         item.setQuantity(1);
         int nums = item.getQuantity();
@@ -104,7 +106,7 @@ public class ItemTest {
 
         item.setPrice(new BigDecimal("100.00"));
         String amountN = String.valueOf(item.getPrice());
-        assertEquals("100.00", amountN);
+        assertEquals("$100.00", amountN);
 
         item.setQuantity(1);
         int numsQ = item.getQuantity();
