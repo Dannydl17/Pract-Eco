@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -19,18 +20,17 @@ public class EcommerceTest {
 
     @Test
     public void testThatEcommerceAppCanRegisterUserTest(){
-        User user = eShoppingMall.canRegisterUser("firstName", "lastName", "email",
+        eShoppingMall.canRegisterUser("firstName", "lastName", "email",
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
-        assertNotNull(user);
     }
 
     @Test
     public void testThatEcommerceAppCanFindARegisterUserTest(){
-        User user = eShoppingMall.canRegisterUser("firstName", "lastName", "email",
+        eShoppingMall.canRegisterUser("firstName", "lastName", "email",
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
-        assertNotNull(user);
+
         User newUser = eShoppingMall.canFindARegisterUser("email");
         assertEquals("email", newUser.getEmail());
     }
@@ -38,10 +38,10 @@ public class EcommerceTest {
 
     @Test
     public void testThatEcommerceAppCanGiveACartTToARegisterUserTest(){
-        User user = eShoppingMall.canRegisterUser("firstName", "lastName", "email",
+        eShoppingMall.canRegisterUser("firstName", "lastName", "email",
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
-        assertNotNull(user);
+
         User newUser = eShoppingMall.canFindARegisterUser("email");
         assertEquals("email", newUser.getEmail());
         Cart cart = eShoppingMall.canCreateCartForUser();
@@ -50,10 +50,10 @@ public class EcommerceTest {
 
     @Test
     public void testThatEcommerceAppCanGiveACartTToARegisterUserAndARegisterUserCanAddItemsTest(){
-        User user = eShoppingMall.canRegisterUser("firstName", "lastName", "email",
+        eShoppingMall.canRegisterUser("firstName", "lastName", "email",
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
-        assertNotNull(user);
+
         User newUser = eShoppingMall.canFindARegisterUser("email");
         assertEquals("email", newUser.getEmail());
         Cart cart = eShoppingMall.canCreateCartForUser();
@@ -64,10 +64,9 @@ public class EcommerceTest {
 
     @Test
     public void testThatEcommerceAppCanGiveACartTToARegisterUserAndARegisterUserCanAddItemsTwiceAndRemoveOnceTest(){
-        User user = eShoppingMall.canRegisterUser("firstName", "lastName", "email",
+        eShoppingMall.canRegisterUser("firstName", "lastName", "email",
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
-        assertNotNull(user);
         User newUser = eShoppingMall.canFindARegisterUser("email");
         assertEquals("email", newUser.getEmail());
         Cart cart = eShoppingMall.canCreateCartForUser();
@@ -78,5 +77,23 @@ public class EcommerceTest {
         assertEquals(2, cart.count());
         eShoppingMall.canRemoveItem("name");
         assertEquals(1, cart.count());
+    }
+
+    @Test
+    public void testThatEcommerceAppCanHaveListOfItemsFound(){
+        ArrayList<String> list = new ArrayList<>();
+        list.add("Bread");
+        list.add("Water");
+        list.add("Pen");
+        list.add("Cake");
+        list.add("Sweet");
+
+        String[] result = eShoppingMall.canHaveListOfItems(list);
+        assertEquals("Bread", result[0]);
+        assertEquals("Water", result[1]);
+        assertEquals("Pen", result[2]);
+        assertEquals("Cake", result[3]);
+        assertEquals("Sweet", result[4]);
+        assertEquals(5, result.length);
     }
 }

@@ -13,14 +13,14 @@ public class Ecommerce {
 
     public Ecommerce(String name){
         users = new ArrayList<>();
+
     }
 
-    public User canRegisterUser(String firstName, String lastName, String email,
+    public void canRegisterUser(String firstName, String lastName, String email,
                                 String phoneNumber, String password, String address) {
         numberOfUser++;
         User user = new User(firstName, lastName, email, phoneNumber, password, address);
         users.add(user);
-        return user;
     }
 
     public int getTotalNumberOfUser() {
@@ -52,4 +52,16 @@ public class Ecommerce {
         User user = canFindARegisterUser("email");
         user.canRemoveItem(name);
     }
+
+    public String[] canHaveListOfItems(ArrayList<String> list) {
+        ItemFound itemFound = new ItemFound();
+        String[] results = new String[list.size()];
+        for (int index = 0; index < results.length; index++) {
+            results[index] = String.valueOf(list.get(index));
+        }
+
+        results = itemFound.canAddItems(results);
+        return results;
+    }
+
 }
