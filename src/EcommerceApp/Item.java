@@ -32,7 +32,8 @@ public class Item {
     }
 
     public String addSymbol(BigDecimal price){
-        return "$" + price;
+        String r =  String.format("$%.2f", price);
+        return r;
     }
 
     public void setQuantity(Integer quantity) {
@@ -42,5 +43,6 @@ public class Item {
     public Integer getQuantity() {
         return quantity;
     }
+
 
 }

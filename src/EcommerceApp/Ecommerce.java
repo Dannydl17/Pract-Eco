@@ -1,19 +1,17 @@
 package EcommerceApp;
 
-import EcommerceApp.exception.InvalidItemName;
 import EcommerceApp.exception.UserNotFound;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ecommerce {
-
     private int numberOfUser;
     private ArrayList<User> users;
 
     public Ecommerce(String name){
         users = new ArrayList<>();
-
     }
 
     public void canRegisterUser(String firstName, String lastName, String email,
@@ -53,15 +51,23 @@ public class Ecommerce {
         user.canRemoveItem(name);
     }
 
-    public String[] canHaveListOfItems(ArrayList<String> list) {
-        ItemFound itemFound = new ItemFound();
-        String[] results = new String[list.size()];
-        for (int index = 0; index < results.length; index++) {
-            results[index] = String.valueOf(list.get(index));
-        }
-
-        results = itemFound.canAddItems(results);
-        return results;
+    public String[] canHaveStoredItems(String[] items) {
+        StoreItem storeItem = new StoreItem(items);
+        String[] r = storeItem.getItemFounds();
+        System.out.println(Arrays.toString(r));
+        return r;
     }
+
+
+//    public String[] canHaveListOfItems(String element) {
+//        StoreItem itemFound = new StoreItem();
+//        String[] results = new String[element.length()];
+//        for (int index = 0; index < results.length; index++) {
+//            results[index] = element[index];
+//        }
+//
+//        results = itemFound.canAddItems(results);
+//        return results;
+//    }
 
 }

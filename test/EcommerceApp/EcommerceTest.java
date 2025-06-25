@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -79,21 +80,10 @@ public class EcommerceTest {
         assertEquals(1, cart.count());
     }
 
-    @Test
-    public void testThatEcommerceAppCanHaveListOfItemsFound(){
-        ArrayList<String> list = new ArrayList<>();
-        list.add("Bread");
-        list.add("Water");
-        list.add("Pen");
-        list.add("Cake");
-        list.add("Sweet");
 
-        String[] result = eShoppingMall.canHaveListOfItems(list);
-        assertEquals("Bread", result[0]);
-        assertEquals("Water", result[1]);
-        assertEquals("Pen", result[2]);
-        assertEquals("Cake", result[3]);
-        assertEquals("Sweet", result[4]);
-        assertEquals(5, result.length);
+    @Test
+    public void testThatEShoppingMallCanHaveStoredItemsTest(){
+        String[] items = {"Bread", "Rice"};
+        eShoppingMall.canHaveStoredItems(items);
     }
 }

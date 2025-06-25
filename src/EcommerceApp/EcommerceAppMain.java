@@ -1,6 +1,10 @@
 package EcommerceApp;
 
+import EcommerceApp.exception.UserNotFound;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.lang.System.in;
@@ -11,8 +15,13 @@ public class EcommerceAppMain {
 
     private static void canRegisterUser(String fName, String lName, String email,
                                         String pNumber, String passWo, String address) {
-        eShoppingMall.canRegisterUser(fName, lName, email, pNumber, passWo, address);
-        System.out.println("Registration was successful");
+        try{
+            eShoppingMall.canRegisterUser(fName, lName, email, pNumber, passWo, address);
+            System.out.println("Registration was successful");
+        }
+        catch (RuntimeException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 
     private static User canFindAUser(String email) {
