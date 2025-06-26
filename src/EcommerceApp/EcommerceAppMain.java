@@ -1,10 +1,6 @@
 package EcommerceApp;
 
-import EcommerceApp.exception.UserNotFound;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.lang.System.in;
@@ -13,27 +9,63 @@ public class EcommerceAppMain {
     private static Ecommerce eShoppingMall = new Ecommerce("EShoppingMall");
     private static Scanner keyboardInput = new Scanner(in);
 
-    private static void canRegisterUser(String fName, String lName, String email,
-                                        String pNumber, String passWo, String address) {
-        try{
-            eShoppingMall.canRegisterUser(fName, lName, email, pNumber, passWo, address);
-            System.out.println("Registration was successful");
+    public static void main(String[] args) {
+        EcommerceMainMenu();
+    }
+
+    private static void EcommerceMainMenu() {
+        String menu = """
+                Welcome To EShopping Mail
+                =========================
+                1 -> Register
+                2 -> AddItem
+                3 -> RemoveItem
+                4 -> Exit
+                ==================
+                """;
+        String response = input(menu);
+        services(response);
+    }
+
+    private static void services(String response) {
+        switch(response){
+            case "1" -> register();
+            case "2" -> addItem();
+            case "3" -> removeItem();
+            case "4" -> exit();
         }
-        catch (RuntimeException ex){
-            System.out.println(ex.getMessage());
-        }
     }
 
-    private static User canFindAUser(String email) {
-        User user = eShoppingMall.canFindARegisterUser(email);
-        return user;
+
+    private static String input(String menu) {
+        System.out.println(menu);
+        return keyboardInput.nextLine();
     }
 
-    private static void canAddItem(String name, BigDecimal bigDecimal, int numb) {
-        eShoppingMall.canAddItemsToCart(name, bigDecimal, numb);
+    private static void register() {
+        String firstName =  input("Enter your firstname: ");
+        String lastName =  input("Enter your lastname: ");
+        String email =  input("Enter your email: ");
+        String phoneNumber =  input("Enter your phoneNumber: ");
+        String password = input("Enter your password: ");
+        String address = input("Enter your address: ");
+        System.out.println(eShoppingMall.canRegisterUser(firstName, lastName, email, phoneNumber, password, address));
+//        EcommerceMainMenu();
     }
 
-    private static void canRemoveItem(String name) {
-        eShoppingMall.canRemoveItem(name);
+    private static void addItem() {
+        String itemName =  input("Enter the item name: ");
+        BigDecimal price = new BigDecimal(input("Enter ya amount: "));
+        int quantity = Integer.parseInt(input("Enter ya quantity: "));
+        eShoppingMall.canAddItemsToCart(itemName, price, quantity);
+    }
+
+    private static void removeItem() {
+        String itemName =  input("Enter the item name: ");
+
+    }
+
+    private static void exit() {
+        System.exit(9);
     }
 }

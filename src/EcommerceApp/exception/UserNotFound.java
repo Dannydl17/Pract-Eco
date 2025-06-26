@@ -1,6 +1,6 @@
 package EcommerceApp.exception;
 
-public class UserNotFound extends RuntimeException{
+public class UserNotFound extends EcommerceAppException{
     public UserNotFound(String message) {
         super(message);
     }

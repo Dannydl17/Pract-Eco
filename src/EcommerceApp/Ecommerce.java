@@ -10,15 +10,20 @@ public class Ecommerce {
     private int numberOfUser;
     private ArrayList<User> users;
 
-    public Ecommerce(String name){
+    private Cart cart;
+
+    public Ecommerce(String name) {
         users = new ArrayList<>();
     }
 
-    public void canRegisterUser(String firstName, String lastName, String email,
-                                String phoneNumber, String password, String address) {
+    public String canRegisterUser(String firstName, String lastName, String email,
+                                  String phoneNumber, String password, String address) {
+
         numberOfUser++;
         User user = new User(firstName, lastName, email, phoneNumber, password, address);
         users.add(user);
+        String word = "Account created";
+        return word;
     }
 
     public int getTotalNumberOfUser() {
@@ -26,37 +31,45 @@ public class Ecommerce {
     }
 
     public User canFindARegisterUser(String email) {
-        for (User user: users) {
+        User user = canFindUser(email);
+        return user;
+    }
+
+    private User canFindUser(String email) {
+        for (User user : users) {
             if (user.getEmail().equals(email)) {
                 return user;
             }
+
+            throw new UserNotFound("User not found");
         }
-        throw new UserNotFound("User not found");
+        return null;
     }
 
-    public Cart canCreateCartForUser() {
+    public Cart canCreateCartForUser () {
         User user = canFindARegisterUser("email");
-        Cart cart = user.canHaveACart();
+        Cart cart = user.canCreateCart();
         return cart;
     }
 
     public void canAddItemsToCart(String name, BigDecimal bigDecimal, int numb) {
+        User user = canFindARegisterUser("email");
         Item item = new Item(name, bigDecimal, numb);
-        User user = canFindARegisterUser("email");
-        user.add(item);
+        Cart cart = canCreateCartForUser();
+        cart.add(item);
     }
+//
+//    public void canRemoveItem(String name) {
+//        User user = canFindARegisterUser("email");
+//        user.canRemoveItem(name);
+//    }
 
-    public void canRemoveItem(String name) {
-        User user = canFindARegisterUser("email");
-        user.canRemoveItem(name);
-    }
-
-    public String[] canHaveStoredItems(String[] items) {
-        StoreItem storeItem = new StoreItem(items);
-        String[] r = storeItem.getItemFounds();
-        System.out.println(Arrays.toString(r));
-        return r;
-    }
+//    public String[] canHaveStoredItems(String[] items) {
+//        StoreItem storeItem = new StoreItem(items);
+//        String[] r = storeItem.getItemFounds();
+//        System.out.println(Arrays.toString(r));
+//        return r;
+//    }
 
 
 //    public String[] canHaveListOfItems(String element) {
@@ -69,5 +82,6 @@ public class Ecommerce {
 //        results = itemFound.canAddItems(results);
 //        return results;
 //    }
+
 
 }

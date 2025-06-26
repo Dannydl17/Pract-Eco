@@ -3,15 +3,10 @@ package EcommerceApp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UserTest {
     private User user;
-
-    private Item item;
 
     @BeforeEach
     public void setUp(){
@@ -55,52 +50,9 @@ public class UserTest {
     }
 
     @Test
-    public void testThatUserCanSetAddressTest(){
+    public void testThatUserCanSetAddressTest() {
         user.setAddress("Ondo Street");
         String address = user.getAddress();
         assertEquals("Ondo Street", address);
-    }
-
-    @Test
-    public void testThatUserCanHaveACartTest(){
-        Cart cart = user.canHaveACart();
-        assertNotNull(cart);
-    }
-
-    @Test
-    public void testThatUserCanHaveACartToAddItemTest(){
-        Cart cart = user.canHaveACart();
-        item = new Item("Water", new BigDecimal("50.00"), 0);
-        user.add(item);
-        assertEquals(1, cart.count());
-    }
-
-    @Test
-    public void testThatUserCanAddItemCartTwiceTest(){
-        Cart cart = user.canHaveACart();
-        assertEquals(0, cart.count());
-        item = new Item("Water", new BigDecimal("50.00"), 0);
-        user.add(item);
-        assertEquals(1, cart.count());
-
-        item = new Item("Bag", new BigDecimal("100.00"), 0);
-        user.add(item);
-        assertEquals(2, cart.count());
-    }
-
-    @Test
-    public void testThatUserCanAddItemCartTwiceAndRemoveOneTest(){
-        Cart cart = user.canHaveACart();
-        item = new Item("Water", new BigDecimal("50.00"), 0);
-        user.add(item);
-        assertEquals(1, cart.count());
-
-        item = new Item("Bag", new BigDecimal("100.00"), 0);
-        String sItem = item.getItemName();
-        user.add(item);
-        assertEquals(2, cart.count());
-
-        user.canRemoveItem(sItem);
-        assertEquals(1, cart.count());
     }
 }

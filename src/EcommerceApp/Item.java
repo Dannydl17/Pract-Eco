@@ -25,7 +25,6 @@ public class Item {
         this.price = price;
     }
 
-
     public String getPrice() {
         // This should return the price with a currency symbol like naira or dollars ($);
         return addSymbol(price);
