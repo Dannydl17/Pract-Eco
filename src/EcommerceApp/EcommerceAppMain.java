@@ -6,7 +6,7 @@ import java.util.Scanner;
 import static java.lang.System.in;
 
 public class EcommerceAppMain {
-    private static Ecommerce eShoppingMall = new Ecommerce("EShoppingMall");
+    private static Ecommerce eShoppingMall;
     private static Scanner keyboardInput = new Scanner(in);
 
     public static void main(String[] args) {
@@ -18,6 +18,7 @@ public class EcommerceAppMain {
                 Welcome To EShopping Mail
                 =========================
                 1 -> Register
+                2 -> SearchForItem
                 2 -> AddItem
                 3 -> RemoveItem
                 4 -> Exit
@@ -30,12 +31,12 @@ public class EcommerceAppMain {
     private static void services(String response) {
         switch(response){
             case "1" -> register();
-            case "2" -> addItem();
-            case "3" -> removeItem();
-            case "4" -> exit();
+            case "2" -> searchForItems();
+            case "3" -> addItem();
+            case "4" -> removeItem();
+            case "5" -> exit();
         }
     }
-
 
     private static String input(String menu) {
         System.out.println(menu);
@@ -49,11 +50,26 @@ public class EcommerceAppMain {
         String phoneNumber =  input("Enter your phoneNumber: ");
         String password = input("Enter your password: ");
         String address = input("Enter your address: ");
-        System.out.println(eShoppingMall.canRegisterUser(firstName, lastName, email, phoneNumber, password, address));
+        System.out.println
+        (eShoppingMall.canRegisterUser(firstName, lastName, email,
+        phoneNumber, password, address));
 //        EcommerceMainMenu();
     }
 
+    private static void createItems() {
+        String itemName =  input("Enter item name: ");
+        String itemAmount =  input("Enter ya amount: ");
+        int quantity = Integer.parseInt(input("Enter the number of quantity: "));
+        eShoppingMall.canCreateItem(itemName, new BigDecimal(itemAmount), quantity);
+    }
+
+    private static void searchForItems() {
+        String itemName =  input("Enter item name: ");
+        eShoppingMall.canSearchForItem(itemName);
+    }
+
     private static void addItem() {
+
         String itemName =  input("Enter the item name: ");
         BigDecimal price = new BigDecimal(input("Enter ya amount: "));
         int quantity = Integer.parseInt(input("Enter ya quantity: "));
@@ -62,7 +78,6 @@ public class EcommerceAppMain {
 
     private static void removeItem() {
         String itemName =  input("Enter the item name: ");
-
     }
 
     private static void exit() {

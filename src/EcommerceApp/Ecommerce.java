@@ -1,28 +1,41 @@
 package EcommerceApp;
 
+import EcommerceApp.exception.InvalidItem;
 import EcommerceApp.exception.UserNotFound;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Ecommerce {
     private int numberOfUser;
+    private int numberOfItem;
+    private int numberOfItemStored;
     private ArrayList<User> users;
-
+    private ArrayList<Item> items;
     private Cart cart;
 
     public Ecommerce(String name) {
         users = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
-    public String canRegisterUser(String firstName, String lastName, String email,
-                                  String phoneNumber, String password, String address) {
+    public String canRegisterUser(String firstName, String lastName,
+                          String email, String phoneNumber,
+                          String password, String address) {
 
-        numberOfUser++;
-        User user = new User(firstName, lastName, email, phoneNumber, password, address);
-        users.add(user);
-        String word = "Account created";
+
+        String word = null;
+        try {
+            canFindARegisterUser(email);
+            word = "User already exists";
+        }
+        catch (UserNotFound ex){
+            User newUser = new User(firstName, lastName, email, phoneNumber, password, address);
+            users.add(newUser);
+            numberOfUser++;
+             word = "Account created";
+        }
+
         return word;
     }
 
@@ -31,57 +44,76 @@ public class Ecommerce {
     }
 
     public User canFindARegisterUser(String email) {
-        User user = canFindUser(email);
-        return user;
-    }
-
-    private User canFindUser(String email) {
-        for (User user : users) {
+        for (User user: users) {
             if (user.getEmail().equals(email)) {
                 return user;
             }
-
-            throw new UserNotFound("User not found");
         }
-        return null;
+        throw new UserNotFound("User not found");
     }
 
-    public Cart canCreateCartForUser () {
-        User user = canFindARegisterUser("email");
-        Cart cart = user.canCreateCart();
+    public String canCreateItem(String name, BigDecimal amount, int quantity) {
+
+        String word = null;
+        try {
+            findItemByName(name);
+            word = "Item exists";
+        }
+        catch (InvalidItem ex){
+            Item item = new Item(name, amount, quantity);
+            items.add(item);
+            numberOfItem++;
+            word = "Item Added";
+        }
+
+        return word;
+    }
+
+    private Item findItemByName(String name) {
+        for (Item item: items) {
+            if (item.getItemName().equals(name)) {
+                return item;
+            }
+        }
+        throw new InvalidItem("Item not found");
+    }
+
+    public int getTotalNumberOfItems() {
+        return numberOfItem;
+    }
+
+    public void storedItems(Item[] item) {
+        for (int count = 0; count < item.length; count++) {
+            Item n = item[count];
+            items.add(n);
+            numberOfItemStored++;
+        }
+    }
+
+    public int getNumberOfItemStored(){
+        return numberOfItemStored;
+    }
+
+    public String canSearchForItem(String itemName) {
+        Item foundItem = findItemByName(itemName);
+
+        if(foundItem)
+    }
+
+
+    public Cart canCreateCart () {
+        cart = new Cart();
         return cart;
     }
 
     public void canAddItemsToCart(String name, BigDecimal bigDecimal, int numb) {
-        User user = canFindARegisterUser("email");
         Item item = new Item(name, bigDecimal, numb);
-        Cart cart = canCreateCartForUser();
         cart.add(item);
+
     }
-//
-//    public void canRemoveItem(String name) {
-//        User user = canFindARegisterUser("email");
-//        user.canRemoveItem(name);
-//    }
 
-//    public String[] canHaveStoredItems(String[] items) {
-//        StoreItem storeItem = new StoreItem(items);
-//        String[] r = storeItem.getItemFounds();
-//        System.out.println(Arrays.toString(r));
-//        return r;
-//    }
-
-
-//    public String[] canHaveListOfItems(String element) {
-//        StoreItem itemFound = new StoreItem();
-//        String[] results = new String[element.length()];
-//        for (int index = 0; index < results.length; index++) {
-//            results[index] = element[index];
-//        }
-//
-//        results = itemFound.canAddItems(results);
-//        return results;
-//    }
-
+    public void canRemoveItem(String name) {
+        cart.Remove(name);
+    }
 
 }

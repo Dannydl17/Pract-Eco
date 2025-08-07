@@ -43,5 +43,12 @@ public class Item {
         return quantity;
     }
 
-
+    @Override
+    public String toString() {
+        return "{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

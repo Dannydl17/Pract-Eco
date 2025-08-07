@@ -1,7 +1,5 @@
 package EcommerceApp;
 
-import java.math.BigDecimal;
-
 public class User {
     private String firstName;
     private String lastName;
@@ -68,8 +66,4 @@ public class User {
         return address;
     }
 
-    public Cart canCreateCart() {
-        Cart cart = new Cart();
-        return cart;
-    }
 }
