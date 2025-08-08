@@ -51,7 +51,7 @@ public class EcommerceAppMain {
         String password = input("Enter your password: ");
         String address = input("Enter your address: ");
         System.out.println
-        (eShoppingMall.canRegisterUser(firstName, lastName, email,
+        (eShoppingMall.registerUser(firstName, lastName, email,
         phoneNumber, password, address));
 //        EcommerceMainMenu();
     }
@@ -60,12 +60,12 @@ public class EcommerceAppMain {
         String itemName =  input("Enter item name: ");
         String itemAmount =  input("Enter ya amount: ");
         int quantity = Integer.parseInt(input("Enter the number of quantity: "));
-        eShoppingMall.canCreateItem(itemName, new BigDecimal(itemAmount), quantity);
+        eShoppingMall.createItems(itemName, new BigDecimal(itemAmount), quantity);
     }
 
     private static void searchForItems() {
         String itemName =  input("Enter item name: ");
-        eShoppingMall.canSearchForItem(itemName);
+        eShoppingMall.searchForItem(itemName);
     }
 
     private static void addItem() {
@@ -73,7 +73,7 @@ public class EcommerceAppMain {
         String itemName =  input("Enter the item name: ");
         BigDecimal price = new BigDecimal(input("Enter ya amount: "));
         int quantity = Integer.parseInt(input("Enter ya quantity: "));
-        eShoppingMall.canAddItemsToCart(itemName, price, quantity);
+        eShoppingMall.addItemsToCart(itemName, price, quantity);
     }
 
     private static void removeItem() {

@@ -19,14 +19,14 @@ public class Ecommerce {
         items = new ArrayList<>();
     }
 
-    public String canRegisterUser(String firstName, String lastName,
+    public String registerUser(String firstName, String lastName,
                           String email, String phoneNumber,
                           String password, String address) {
 
 
-        String word = null;
+        String word;
         try {
-            canFindARegisterUser(email);
+            findARegisterUser(email);
             word = "User already exists";
         }
         catch (UserNotFound ex){
@@ -43,7 +43,7 @@ public class Ecommerce {
         return numberOfUser;
     }
 
-    public User canFindARegisterUser(String email) {
+    public User findARegisterUser(String email) {
         for (User user: users) {
             if (user.getEmail().equals(email)) {
                 return user;
@@ -52,9 +52,9 @@ public class Ecommerce {
         throw new UserNotFound("User not found");
     }
 
-    public String canCreateItem(String name, BigDecimal amount, int quantity) {
+    public String createItems(String name, BigDecimal amount, int quantity) {
 
-        String word = null;
+        String word;
         try {
             findItemByName(name);
             word = "Item exists";
@@ -94,25 +94,30 @@ public class Ecommerce {
         return numberOfItemStored;
     }
 
-    public String canSearchForItem(String itemName) {
-        Item foundItem = findItemByName(itemName);
-
-        if(foundItem)
+    public String searchForItem(String itemName) {
+        String word = null;
+        for (int count = 0; count < items.size(); count++) {
+             Item item = items.get(count);
+            if (item.getItemName().equals(itemName)) {
+                word = "Item already found";
+            }
+        }
+        return word;
     }
 
 
-    public Cart canCreateCart () {
+    public Cart createCart () {
         cart = new Cart();
         return cart;
     }
 
-    public void canAddItemsToCart(String name, BigDecimal bigDecimal, int numb) {
+    public void addItemsToCart(String name, BigDecimal bigDecimal, int numb) {
         Item item = new Item(name, bigDecimal, numb);
         cart.add(item);
 
     }
 
-    public void canRemoveItem(String name) {
+    public void removeItem(String name) {
         cart.Remove(name);
     }
 
