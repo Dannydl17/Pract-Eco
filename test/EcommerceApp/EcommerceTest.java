@@ -48,14 +48,17 @@ public class EcommerceTest {
     @Test
     public void testThatEcommerceAppCanSearchForItemsTest(){
         Item itemFst = new Item("Rice", new BigDecimal("50.00"), 1);
+
         Item itemScd = new Item("Bread", new BigDecimal("50.00"), 0);
+
         Item itemTd = new Item("Water", new BigDecimal("100.00"), 2);
+
         Item[] items = {itemFst, itemScd, itemTd};
         eShoppingMall.storedItems(items);
         assertEquals(3, eShoppingMall.getNumberOfItemStored());
 
         String itemName = "Bread";
-        String word = eShoppingMall.searchForItem(itemName);
+        String[] word = eShoppingMall.searchForItem(itemName);
     }
 
     @Test

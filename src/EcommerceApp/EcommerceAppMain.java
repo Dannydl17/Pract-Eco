@@ -1,12 +1,15 @@
 package EcommerceApp;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static java.lang.System.in;
 
 public class EcommerceAppMain {
-    private static Ecommerce eShoppingMall;
+    private static Ecommerce eShoppingMall = new Ecommerce("EShoppingMall");
+
+    private static Item[] item;
     private static Scanner keyboardInput = new Scanner(in);
 
     public static void main(String[] args) {
@@ -64,12 +67,24 @@ public class EcommerceAppMain {
     }
 
     private static void searchForItems() {
+        Item itemFst = new Item("Rice", new BigDecimal("50.00"), 1);
+
+        Item itemScd = new Item("Bread", new BigDecimal("50.00"), 0);
+
+        Item itemTd = new Item("Water", new BigDecimal("100.00"), 2);
+
+        item = new Item[]{itemFst, itemScd, itemTd};
+        eShoppingMall.storedItems(item);
+
         String itemName =  input("Enter item name: ");
-        eShoppingMall.searchForItem(itemName);
+        String[] item = eShoppingMall.searchForItem(itemName);
+
+        for (int count = 0; count < item.length; count++) {
+            System.out.print(item[count] + " ");
+        }
     }
 
     private static void addItem() {
-
         String itemName =  input("Enter the item name: ");
         BigDecimal price = new BigDecimal(input("Enter ya amount: "));
         int quantity = Integer.parseInt(input("Enter ya quantity: "));

@@ -5,6 +5,7 @@ import EcommerceApp.exception.UserNotFound;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Ecommerce {
     private int numberOfUser;
@@ -94,15 +95,38 @@ public class Ecommerce {
         return numberOfItemStored;
     }
 
-    public String searchForItem(String itemName) {
-        String word = null;
+    public String[] searchForItem(String itemName) {
+        String name = null;
+        String price = null;
+        int quantity = 0;
+
         for (int count = 0; count < items.size(); count++) {
              Item item = items.get(count);
             if (item.getItemName().equals(itemName)) {
-                word = "Item already found";
+                name = item.getItemName();
+                price  = item.getPrice();
+                quantity = item.getQuantity();
             }
         }
-        return word;
+
+        return storeInArray(name , price, quantity);
+    }
+
+    private String[] storeInArray(String name, String price, int quantityN) {
+        ArrayList<String> result = new ArrayList<>();
+        result.add(name);
+        result.add(price);
+        result.add(String.valueOf(quantityN));
+
+      return convertToArray(result);
+    }
+
+    private String[] convertToArray(ArrayList<String> result) {
+        String[] results = new String[result.size()];
+        for (int index = 0; index < results.length; index++) {
+            results[index] = result.get(index);
+        }
+        return results;
     }
 
 
