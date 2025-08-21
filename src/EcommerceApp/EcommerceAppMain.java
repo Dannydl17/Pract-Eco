@@ -8,8 +8,9 @@ import static java.lang.System.in;
 
 public class EcommerceAppMain {
     private static Ecommerce eShoppingMall = new Ecommerce("EShoppingMall");
-
     private static Item[] item;
+
+    private static User user;
     private static Scanner keyboardInput = new Scanner(in);
 
     public static void main(String[] args) {
@@ -21,10 +22,12 @@ public class EcommerceAppMain {
                 Welcome To EShopping Mail
                 =========================
                 1 -> Register
-                2 -> SearchForItem
-                2 -> AddItem
-                3 -> RemoveItem
-                4 -> Exit
+                2 -> FindUser
+                3 -> CreateItems
+                4 -> SearchForItem
+                5 -> AddItem
+                6 -> RemoveItem
+                7 -> Exit
                 ==================
                 """;
         String response = input(menu);
@@ -34,12 +37,16 @@ public class EcommerceAppMain {
     private static void services(String response) {
         switch(response){
             case "1" -> register();
-            case "2" -> searchForItems();
-            case "3" -> addItem();
-            case "4" -> removeItem();
-            case "5" -> exit();
+            case "2" -> findUser();
+            case "3" -> createItems();
+            case "4" -> searchForItems();
+            case "5" -> viewItems();
+            case "6" -> addItem();
+            case "7" -> removeItem();
+            case "8" -> exit();
         }
     }
+
 
     private static String input(String menu) {
         System.out.println(menu);
@@ -57,6 +64,11 @@ public class EcommerceAppMain {
         (eShoppingMall.registerUser(firstName, lastName, email,
         phoneNumber, password, address));
 //        EcommerceMainMenu();
+    }
+
+    private static void findUser() {
+        String email =  input("Enter your email: ");
+        user = eShoppingMall.findARegisterUser(email);
     }
 
     private static void createItems() {
@@ -79,9 +91,10 @@ public class EcommerceAppMain {
         String itemName =  input("Enter item name: ");
         String[] item = eShoppingMall.searchForItem(itemName);
 
-        for (int count = 0; count < item.length; count++) {
-            System.out.print(item[count] + " ");
-        }
+    }
+
+    private static void viewItems() {
+
     }
 
     private static void addItem() {
@@ -93,6 +106,7 @@ public class EcommerceAppMain {
 
     private static void removeItem() {
         String itemName =  input("Enter the item name: ");
+        eShoppingMall.removeItem(itemName);
     }
 
     private static void exit() {

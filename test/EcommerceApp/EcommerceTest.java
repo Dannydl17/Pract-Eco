@@ -59,6 +59,10 @@ public class EcommerceTest {
 
         String itemName = "Bread";
         String[] word = eShoppingMall.searchForItem(itemName);
+        assertEquals("Bread", word[0]);
+        assertEquals("$50.00", word[1]);
+        assertEquals(String.valueOf(0), word[2]);
+        assertEquals(3, word.length);
     }
 
     @Test

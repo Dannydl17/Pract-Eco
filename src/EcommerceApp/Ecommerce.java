@@ -54,18 +54,11 @@ public class Ecommerce {
     }
 
     public String createItems(String name, BigDecimal amount, int quantity) {
-
         String word;
-        try {
-            findItemByName(name);
-            word = "Item exists";
-        }
-        catch (InvalidItem ex){
-            Item item = new Item(name, amount, quantity);
-            items.add(item);
-            numberOfItem++;
-            word = "Item Added";
-        }
+        Item item = new Item(name, amount, quantity);
+        items.add(item);
+        numberOfItem++;
+        word = "Item Added";
 
         return word;
     }
@@ -96,18 +89,18 @@ public class Ecommerce {
     }
 
     public String[] searchForItem(String itemName) {
+        Item item = findItemByName(itemName);
+
         String name = null;
         String price = null;
         int quantity = 0;
 
-        for (int count = 0; count < items.size(); count++) {
-             Item item = items.get(count);
-            if (item.getItemName().equals(itemName)) {
-                name = item.getItemName();
-                price  = item.getPrice();
-                quantity = item.getQuantity();
-            }
+        if (item.getItemName() == itemName) {
+            name = item.getItemName();
+            price = item.getPrice();
+            quantity = item.getQuantity();
         }
+
 
         return storeInArray(name , price, quantity);
     }
@@ -129,7 +122,6 @@ public class Ecommerce {
         return results;
     }
 
-
     public Cart createCart () {
         cart = new Cart();
         return cart;
@@ -144,5 +136,4 @@ public class Ecommerce {
     public void removeItem(String name) {
         cart.Remove(name);
     }
-
 }
