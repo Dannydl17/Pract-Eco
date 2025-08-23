@@ -78,17 +78,6 @@ public class Ecommerce {
         return numberOfItem;
     }
 
-    public void storedItems(Item[] item) {
-        for (int count = 0; count < item.length; count++) {
-            Item n = item[count];
-            items.add(n);
-            numberOfItemStored++;
-        }
-    }
-
-    public int getNumberOfItemStored(){
-        return numberOfItemStored;
-    }
 
     public String[] searchForItem(String itemName) {
 
