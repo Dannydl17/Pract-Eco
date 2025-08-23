@@ -4,11 +4,13 @@ import EcommerceApp.exception.InvalidItem;
 import EcommerceApp.exception.UserNotFound;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Ecommerce {
     private int numberOfUser;
+    private  SecureRandom randomNumber;
     private int numberOfItem;
     private int numberOfItemStored;
     private ArrayList<User> users;
@@ -89,18 +91,25 @@ public class Ecommerce {
     }
 
     public String[] searchForItem(String itemName) {
-        Item item = findItemByName(itemName);
 
         String name = null;
         String price = null;
         int quantity = 0;
 
-        if (item.getItemName() == itemName) {
-            name = item.getItemName();
-            price = item.getPrice();
-            quantity = item.getQuantity();
-        }
 
+        try {
+            Item item = findItemByName(itemName);
+            if (item.getItemName() == itemName) {
+                name = item.getItemName();
+                price = item.getPrice();
+                quantity = item.getQuantity();
+            }
+        }
+        catch (InvalidItem ex){
+            randomNumber = new SecureRandom();
+            int numberGuess = 1 + randomNumber.nextInt(12);
+            createItems(itemName, new BigDecimal("0.00"), numberGuess);
+        }
 
         return storeInArray(name , price, quantity);
     }

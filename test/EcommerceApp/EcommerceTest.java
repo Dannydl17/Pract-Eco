@@ -4,13 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.security.SecureRandom;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class EcommerceTest {
     private Ecommerce eShoppingMall;
-    BigDecimal bigDecimal;
+    private BigDecimal bigDecimal;
 
     @BeforeEach
     public void setUp() {
@@ -57,7 +58,7 @@ public class EcommerceTest {
         eShoppingMall.storedItems(items);
         assertEquals(3, eShoppingMall.getNumberOfItemStored());
 
-        String itemName = "Bread";
+        String itemName = "Pen";
         String[] word = eShoppingMall.searchForItem(itemName);
         assertEquals("Bread", word[0]);
         assertEquals("$50.00", word[1]);
