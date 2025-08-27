@@ -6,13 +6,11 @@ import EcommerceApp.exception.UserNotFound;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Ecommerce {
     private int numberOfUser;
     private  SecureRandom randomNumber;
     private int numberOfItem;
-    private int numberOfItemStored;
     private ArrayList<User> users;
     private ArrayList<Item> items;
     private Cart cart;
@@ -79,45 +77,51 @@ public class Ecommerce {
     }
 
 
-    public String[] searchForItem(String itemName) {
-
-        String name = null;
-        String price = null;
-        int quantity = 0;
+    public String searchForItem(String itemName) {
+        storeItem();
+        String itemsSearch = null;
 
 
         try {
             Item item = findItemByName(itemName);
-            if (item.getItemName() == itemName) {
-                name = item.getItemName();
-                price = item.getPrice();
-                quantity = item.getQuantity();
+            if (item.getItemName().equals(itemName)) {
+                String name = item.getItemName();
+                String price = item.getPrice();
+                int quantity = item.getQuantity();
+                itemsSearch = foundItems(name, price, quantity);
             }
+
         }
         catch (InvalidItem ex){
-            randomNumber = new SecureRandom();
-            int numberGuess = 1 + randomNumber.nextInt(12);
-            createItems(itemName, new BigDecimal("0.00"), numberGuess);
-        }
+            String words = ex.getMessage();
+            System.out.println(words);
+            if (ex.getMessage() == words) {
+                itemsSearch = itemNotFound(itemName);
+            }
 
-        return storeInArray(name , price, quantity);
+        }
+        return itemsSearch;
     }
 
-    private String[] storeInArray(String name, String price, int quantityN) {
-        ArrayList<String> result = new ArrayList<>();
-        result.add(name);
-        result.add(price);
-        result.add(String.valueOf(quantityN));
+    private void storeItem() {
+        createItems("Rice", new BigDecimal("50.00"), 1);
 
-      return convertToArray(result);
+        createItems("Bread", new BigDecimal("50.00"), 0);
+
+        createItems("Water", new BigDecimal("100.00"), 2);
     }
 
-    private String[] convertToArray(ArrayList<String> result) {
-        String[] results = new String[result.size()];
-        for (int index = 0; index < results.length; index++) {
-            results[index] = result.get(index);
-        }
-        return results;
+    private String itemNotFound(String item) {
+        randomNumber = new SecureRandom();
+        int numberGuess = 1 + randomNumber.nextInt(12);
+        String word = createItems(item, new BigDecimal("0.00"), numberGuess);
+        return word;
+    }
+
+    private String foundItems(String name, String price, int quantity) {
+        return name + "\n" +
+               price + "\n" +
+              quantity;
     }
 
     public Cart createCart () {
@@ -128,7 +132,6 @@ public class Ecommerce {
     public void addItemsToCart(String name, BigDecimal bigDecimal, int numb) {
         Item item = new Item(name, bigDecimal, numb);
         cart.add(item);
-
     }
 
     public void removeItem(String name) {

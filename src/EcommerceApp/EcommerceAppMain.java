@@ -79,15 +79,9 @@ public class EcommerceAppMain {
     }
 
     private static void searchForItems() {
-        eShoppingMall.createItems("Rice", new BigDecimal("50.00"), 1);
-
-        eShoppingMall.createItems("Bread", new BigDecimal("50.00"), 0);
-
-        eShoppingMall.createItems("Water", new BigDecimal("100.00"), 2);
-
         String itemName =  input("Enter item name: ");
-        String[] item = eShoppingMall.searchForItem(itemName);
-
+        String items = eShoppingMall.searchForItem(itemName);
+        System.out.print(items);
     }
 
     private static void viewItems() {

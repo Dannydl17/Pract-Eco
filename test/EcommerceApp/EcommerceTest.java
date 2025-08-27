@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class EcommerceTest {
     private Ecommerce eShoppingMall;
-    private BigDecimal bigDecimal;
+     BigDecimal bigDecimal;
 
     @BeforeEach
     public void setUp() {
@@ -42,26 +42,23 @@ public class EcommerceTest {
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
 
-        eShoppingMall.createItems("name", bigDecimal = new BigDecimal("0.00"), 0);
+        eShoppingMall.createItems("name", new BigDecimal("0.00"), 0);
         assertEquals(1, eShoppingMall.getTotalNumberOfItems());
     }
 
     @Test
     public void testThatEcommerceAppCanSearchForItemsTest(){
-        eShoppingMall.createItems("Rice", bigDecimal = new BigDecimal("50.00"), 1);
+        eShoppingMall.createItems("Rice", new BigDecimal("50.00"), 1);
 
-        eShoppingMall.createItems("Bread", bigDecimal = new BigDecimal("50.00"), 0);
+        eShoppingMall.createItems("Bread", new BigDecimal("50.00"), 0);
 
-        eShoppingMall.createItems("Water", bigDecimal = new BigDecimal("100.00"), 2);
+        eShoppingMall.createItems("Water", new BigDecimal("100.00"), 2);
 
         assertEquals(3, eShoppingMall.getTotalNumberOfItems());
 
-        String itemName = "Pen";
-        String[] word = eShoppingMall.searchForItem(itemName);
-        assertEquals("Bread", word[0]);
-        assertEquals("$50.00", word[1]);
-        assertEquals(String.valueOf(0), word[2]);
-        assertEquals(3, word.length);
+        String itemName = "Water";
+        String word = eShoppingMall.searchForItem(itemName);
+        assertEquals("Water $100.00 2", word);
     }
 
     @Test
