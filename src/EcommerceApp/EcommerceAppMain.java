@@ -1,103 +1,151 @@
 package EcommerceApp;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.lang.System.in;
 
 public class EcommerceAppMain {
     private static Ecommerce eShoppingMall = new Ecommerce("EShoppingMall");
-    private static Item[] item;
 
-    private static User user;
+    private static ArrayList<Item> listItems = new ArrayList<>();
     private static Scanner keyboardInput = new Scanner(in);
 
     public static void main(String[] args) {
         EcommerceMainMenu();
+        register();
+        findUser();
+        searchForItems();
+        viewAllItems();
     }
 
-    private static void EcommerceMainMenu() {
+    private static void EcommerceMainMenu () {
         String menu = """
-                Welcome To EShopping Mail
+                WELCOME TO ESHOPPING MALL
                 =========================
-                1 -> Register
-                2 -> FindUser
-                3 -> CreateItems
-                4 -> SearchForItem
-                5 -> AddItem
-                6 -> RemoveItem
-                7 -> Exit
-                ==================
+                Register
+                FindUser
+                CreateItems
+                SearchForItem
+                ViewItems
+                AddItem
+                RemoveItem
+                CheckOut
+                9 -> Exit
+                =========================
                 """;
-        String response = input(menu);
-        services(response);
+        System.out.println(menu);
     }
 
     private static void services(String response) {
         switch(response){
-            case "1" -> register();
-            case "2" -> findUser();
-            case "3" -> createItems();
-            case "4" -> searchForItems();
-            case "5" -> viewItems();
-            case "6" -> addItem();
-            case "7" -> removeItem();
-            case "8" -> exit();
+            case "9" -> exit();
         }
     }
 
 
-    private static String input(String menu) {
-        System.out.println(menu);
-        return keyboardInput.nextLine();
-    }
-
     private static void register() {
-        String firstName =  input("Enter your firstname: ");
-        String lastName =  input("Enter your lastname: ");
-        String email =  input("Enter your email: ");
-        String phoneNumber =  input("Enter your phoneNumber: ");
-        String password = input("Enter your password: ");
-        String address = input("Enter your address: ");
+        System.out.println("Enter your firstname: ");
+        String firstName = keyboardInput.nextLine();
+
+        System.out.println("Enter your lastname: ");
+        String lastName = keyboardInput.nextLine();
+
+        System.out.println("Enter your email: ");
+        String email = keyboardInput.nextLine();
+
+        System.out.println("Enter your phoneNumber: ");
+        String phoneNumber = keyboardInput.nextLine();
+
+        System.out.println("Enter your passWord: ");
+        String password = keyboardInput.nextLine();
+
+        System.out.println("Enter your address: ");
+        String address = keyboardInput.nextLine();
+
         System.out.println
         (eShoppingMall.registerUser(firstName, lastName, email,
         phoneNumber, password, address));
-//        EcommerceMainMenu();
+
     }
 
     private static void findUser() {
-        String email =  input("Enter your email: ");
-        user = eShoppingMall.findARegisterUser(email);
+        System.out.println("Enter your email: ");
+        String email = keyboardInput.nextLine();
+        eShoppingMall.findARegisterUser(email);
     }
 
     private static void createItems() {
-        String itemName =  input("Enter item name: ");
-        String itemAmount =  input("Enter ya amount: ");
-        int quantity = Integer.parseInt(input("Enter the number of quantity: "));
+        System.out.println("Enter item name: ");
+        String itemName = keyboardInput.nextLine();
+
+        System.out.println("Enter ya amount: ");
+        String itemAmount = keyboardInput.nextLine();
+
+        System.out.println("Enter the number of quantity: ");
+        int quantity = keyboardInput.nextInt();
         eShoppingMall.createItems(itemName, new BigDecimal(itemAmount), quantity);
     }
 
     private static void searchForItems() {
-        String itemName =  input("Enter item name: ");
-        String items = eShoppingMall.searchForItem(itemName);
-        System.out.print(items);
-    }
-
-    private static void viewItems() {
+        System.out.println("Enter item name: ");
+        String itemName = keyboardInput.nextLine();
+        eShoppingMall.searchForItem(itemName);
 
     }
+
+    private static void viewAllItems() {
+      listItems = eShoppingMall.canViewListOfItems();
+
+      int count = 0;
+
+       Item item =listItems.get(count);
+       String name = item.getItemName();
+       String amount = item.getPrice();
+       int quantity = item.getQuantity();
+        System.out.println(name);
+        System.out.println(amount);
+        System.out.println(quantity);
+
+        count++;
+
+        while (count < listItems.size()){
+            item =listItems.get(count);
+            name = item.getItemName();
+            amount = item.getPrice();
+            quantity = item.getQuantity();
+
+            System.out.println(name);
+            System.out.println(amount);
+            System.out.println(quantity);
+            count++;
+        }
+    }
+
 
     private static void addItem() {
-        String itemName =  input("Enter the item name: ");
-        BigDecimal price = new BigDecimal(input("Enter ya amount: "));
-        int quantity = Integer.parseInt(input("Enter ya quantity: "));
+        System.out.println("Enter the item name: ");
+        String itemName = keyboardInput.nextLine();
+
+        System.out.println("Enter ya amount: ");
+        String amount = keyboardInput.nextLine();
+        BigDecimal price = new BigDecimal(new BigInteger(amount));
+
+        System.out.println("Enter ya quantity: ");
+        int quantity = keyboardInput.nextInt();
         eShoppingMall.addItemsToCart(itemName, price, quantity);
     }
 
     private static void removeItem() {
-        String itemName =  input("Enter the item name: ");
+        System.out.println("Enter the item name: ");
+        String itemName = keyboardInput.nextLine();
         eShoppingMall.removeItem(itemName);
+    }
+
+    private static void checkOut() {
+
     }
 
     private static void exit() {

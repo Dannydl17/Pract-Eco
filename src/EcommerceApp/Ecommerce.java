@@ -18,6 +18,8 @@ public class Ecommerce {
     public Ecommerce(String name) {
         users = new ArrayList<>();
         items = new ArrayList<>();
+        cart = new Cart();
+
     }
 
     public String registerUser(String firstName, String lastName,
@@ -79,28 +81,25 @@ public class Ecommerce {
 
     public String searchForItem(String itemName) {
         storeItem();
-        String itemsSearch = null;
-
+        String itemSearch = null;
 
         try {
             Item item = findItemByName(itemName);
             if (item.getItemName().equals(itemName)) {
-                String name = item.getItemName();
-                String price = item.getPrice();
-                int quantity = item.getQuantity();
-                itemsSearch = foundItems(name, price, quantity);
+                itemSearch = foundItems(item.getItemName(),
+                                        item.getPrice(), item.getQuantity());
             }
 
         }
         catch (InvalidItem ex){
             String words = ex.getMessage();
             System.out.println(words);
-            if (ex.getMessage() == words) {
-                itemsSearch = itemNotFound(itemName);
+            if (ex.getMessage().equals(words)) {
+                itemSearch = itemNotFound(itemName);
             }
 
         }
-        return itemsSearch;
+        return itemSearch;
     }
 
     private void storeItem() {
@@ -125,16 +124,20 @@ public class Ecommerce {
     }
 
     public Cart createCart () {
-        cart = new Cart();
         return cart;
     }
 
-    public void addItemsToCart(String name, BigDecimal bigDecimal, int numb) {
-        Item item = new Item(name, bigDecimal, numb);
+    public void addItemsToCart(String name, BigDecimal amount, int numb) {
+        Item item = new Item(name, amount, numb);
         cart.add(item);
     }
 
     public void removeItem(String name) {
         cart.Remove(name);
+    }
+
+    public ArrayList<Item> canViewListOfItems() {
+        storeItem();
+        return items;
     }
 }

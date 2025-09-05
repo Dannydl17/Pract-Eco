@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -48,17 +49,18 @@ public class EcommerceTest {
 
     @Test
     public void testThatEcommerceAppCanSearchForItemsTest(){
-        eShoppingMall.createItems("Rice", new BigDecimal("50.00"), 1);
-
-        eShoppingMall.createItems("Bread", new BigDecimal("50.00"), 0);
-
-        eShoppingMall.createItems("Water", new BigDecimal("100.00"), 2);
-
-        assertEquals(3, eShoppingMall.getTotalNumberOfItems());
-
         String itemName = "Water";
         String word = eShoppingMall.searchForItem(itemName);
-        assertEquals("Water $100.00 2", word);
+        assertEquals("""
+                Water
+                $100.00
+                2""", word);
+    }
+
+    @Test
+    public void testThatEcommerceAppCanViewListOfItemTest(){
+       ArrayList<Item> item = eShoppingMall.canViewListOfItems();
+       assertEquals(3, item.size());
     }
 
     @Test
@@ -67,10 +69,18 @@ public class EcommerceTest {
                 "phoneNumber","password", "address");
         assertEquals(1, eShoppingMall.getTotalNumberOfUser());
 
+        String items = eShoppingMall.searchForItem("Bread");
+
+        String itemName = eShoppingMall.getName();
+
+        String itemPrice= eShoppingMall.getPrice();
+
+        int itemQuantity = eShoppingMall.getQuantity();
+
         Cart cart = eShoppingMall.createCart();
         assertNotNull(cart);
 
-        eShoppingMall.addItemsToCart("name", bigDecimal = new BigDecimal("0.00"), 0);
+        eShoppingMall.addItemsToCart(itemName, itemPrice, itemQuantity);
         assertEquals(1, cart.count());
     }
 
@@ -82,9 +92,9 @@ public class EcommerceTest {
 
         Cart cart = eShoppingMall.createCart();
         assertEquals(0, cart.count());
-        eShoppingMall.addItemsToCart("name", bigDecimal = new BigDecimal("0.00"), 0);
+//        eShoppingMall.addItemsToCart("name", bigDecimal = new BigDecimal("0.00"), 0);
         assertEquals(1, cart.count());
-        eShoppingMall.addItemsToCart("name", bigDecimal = new BigDecimal("0.00"), 0);
+//        eShoppingMall.addItemsToCart("name", bigDecimal = new BigDecimal("0.00"), 0);
         assertEquals(2, cart.count());
         eShoppingMall.removeItem("name");
         assertEquals(1, cart.count());
