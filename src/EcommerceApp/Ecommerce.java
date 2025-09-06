@@ -79,27 +79,23 @@ public class Ecommerce {
     }
 
 
-    public String searchForItem(String itemName) {
+    public Item searchForItem(String itemName) {
         storeItem();
-        String itemSearch = null;
+        Item item = null;
 
         try {
-            Item item = findItemByName(itemName);
-            if (item.getItemName().equals(itemName)) {
-                itemSearch = foundItems(item.getItemName(),
-                                        item.getPrice(), item.getQuantity());
-            }
-
+            item = findItemByName(itemName);
         }
         catch (InvalidItem ex){
             String words = ex.getMessage();
-            System.out.println(words);
             if (ex.getMessage().equals(words)) {
-                itemSearch = itemNotFound(itemName);
+                System.out.println(words);
+                itemNotFound(itemName);
             }
 
         }
-        return itemSearch;
+
+        return item;
     }
 
     private void storeItem() {
@@ -110,11 +106,10 @@ public class Ecommerce {
         createItems("Water", new BigDecimal("100.00"), 2);
     }
 
-    private String itemNotFound(String item) {
+    private void itemNotFound(String item) {
         randomNumber = new SecureRandom();
         int numberGuess = 1 + randomNumber.nextInt(12);
-        String word = createItems(item, new BigDecimal("0.00"), numberGuess);
-        return word;
+        createItems(item, new BigDecimal("0.00"), numberGuess);
     }
 
     private String foundItems(String name, String price, int quantity) {

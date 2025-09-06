@@ -14,19 +14,17 @@ public class EcommerceAppMain {
     private static Scanner keyboardInput = new Scanner(in);
 
     public static void main(String[] args) {
+//        register();
+//        findUser();
         EcommerceMainMenu();
-        register();
-        findUser();
-        searchForItems();
         viewAllItems();
+        searchForItems();
     }
 
     private static void EcommerceMainMenu () {
         String menu = """
                 WELCOME TO ESHOPPING MALL
                 =========================
-                Register
-                FindUser
                 CreateItems
                 SearchForItem
                 ViewItems
@@ -93,35 +91,67 @@ public class EcommerceAppMain {
         System.out.println("Enter item name: ");
         String itemName = keyboardInput.nextLine();
         eShoppingMall.searchForItem(itemName);
-
     }
 
     private static void viewAllItems() {
       listItems = eShoppingMall.canViewListOfItems();
+      int n = listItems.size();
+      int counterN = 0;
+      int counterP = 0;
+      int counterQ = 0;
+
+      String[]itemName = new String[n];
+
+      String[]itemP = new String[n];
+
+      int[]itemQ = new int[n];
 
       int count = 0;
 
        Item item =listItems.get(count);
        String name = item.getItemName();
+       itemName[counterN] = name;
+
        String amount = item.getPrice();
+       itemP[counterP] = amount;
+
        int quantity = item.getQuantity();
-        System.out.println(name);
-        System.out.println(amount);
-        System.out.println(quantity);
+       itemQ[counterQ] = quantity;
 
         count++;
+        counterN++;
+        counterP++;
+        counterQ++;
 
         while (count < listItems.size()){
             item =listItems.get(count);
             name = item.getItemName();
-            amount = item.getPrice();
-            quantity = item.getQuantity();
+            itemName[counterN] = name;
 
-            System.out.println(name);
-            System.out.println(amount);
-            System.out.println(quantity);
+            amount = item.getPrice();
+            itemP[counterP] = amount;
+
+            quantity = item.getQuantity();
+            itemQ[counterQ] = quantity;
+
             count++;
+            counterN++;
+            counterP++;
+            counterQ++;
         }
+
+        for (int index = 0; index < itemName.length; index++) {
+            System.out.print(itemName[index] + "      ");
+        }
+        System.out.println();
+        for (int index = 0; index < itemP.length; index++) {
+            System.out.print(itemP[index] + "    ");
+        }
+        System.out.println();
+        for (int index = 0; index < itemQ.length; index++) {
+            System.out.print(itemQ[index] + "           ");
+        }
+        System.out.println();
     }
 
 
